@@ -69,7 +69,7 @@ class PersonalizationScreen extends StatelessWidget {
                       ),
                     ],
                     minHeight: 30,
-                    minWidth: 70,
+                    minWidth: 69,
                     radiusStyle: true,
                     inactiveBgColor: Colors.transparent,
                   )

@@ -1,4 +1,6 @@
+import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
+import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
 import 'package:evently_app/core/common/app_theme.dart';
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
             const PersonalizationScreen(),
         OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
+        RegesterScreen.routeName: (context) => const RegesterScreen(),
+        ForgetPasswordScreen.routeName: (context) =>
+            const ForgetPasswordScreen(),
       },
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,

@@ -19,22 +19,26 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
+        child: ListView(
           children: [
-            Image.asset(AppAssets.resetPasswordImage,
-                height: MediaQuery.of(context).size.height * 0.5),
-            const SizedBox(
-              height: 24,
+            Column(
+              children: [
+                Image.asset(AppAssets.resetPasswordImage,
+                    height: MediaQuery.of(context).size.height * 0.5),
+                const SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Email',
+                      prefixIcon: const Icon(Icons.email_rounded)),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(onPressed: () {}, child: Text('Reset Password'))
+              ],
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Email',
-                  prefixIcon: const Icon(Icons.email_rounded)),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ElevatedButton(onPressed: () {}, child: Text('Reset Password'))
           ],
         ),
       ),

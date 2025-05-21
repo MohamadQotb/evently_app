@@ -1,3 +1,4 @@
+import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/providers/theme_provider.dart';
@@ -112,7 +113,12 @@ class PersonalizationScreen extends StatelessWidget {
                   )
                 ],
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Let’s Start')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, OnBoardingScreen.routeName);
+                  },
+                  child: Text('Let’s Start')),
             ],
           ),
         ),

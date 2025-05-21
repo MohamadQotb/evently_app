@@ -1,3 +1,5 @@
+import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
+import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
 import 'package:evently_app/core/common/app_theme.dart';
 import 'package:evently_app/providers/theme_provider.dart';
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         PersonalizationScreen.routeName: (context) =>
             const PersonalizationScreen(),
+        OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
       },
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,

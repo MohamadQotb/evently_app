@@ -1,3 +1,5 @@
+import 'package:evently_app/UI/main_screen/tabs/home_tab/views/events_view.dart';
+import 'package:evently_app/UI/main_screen/tabs/home_tab/views/home_header_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
@@ -5,16 +7,8 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Tab'),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to the Home Tab',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-      ),
+    return Column(
+      children: [HomeHeaderView(), Expanded(child: EventsView())],
     );
   }
 }

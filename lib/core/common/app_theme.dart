@@ -3,6 +3,41 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        shape: CircleBorder(
+          side: BorderSide(
+            width: 5,
+            color: AppColors.lightThemeColor,
+          ),
+        ),
+        backgroundColor: AppColors.mainColor,
+        foregroundColor: AppColors.lightThemeColor,
+        elevation: 2,
+        iconSize: 30,
+      ),
+      focusColor: AppColors.mainColor,
+      primaryColor: AppColors.mainColor,
+      primaryColorLight: AppColors.lightThemeColor,
+      primaryColorDark: AppColors.lightThemeColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: AppColors.lightThemeColor,
+          unselectedItemColor: AppColors.lightThemeColor,
+          backgroundColor: AppColors.mainColor,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppColors.lightThemeColor,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppColors.lightThemeColor,
+          ),
+          selectedIconTheme:
+              IconThemeData(size: 24, color: AppColors.lightThemeColor),
+          unselectedIconTheme:
+              IconThemeData(size: 24, color: AppColors.lightThemeColor)),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
         minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 56)),
@@ -107,10 +142,14 @@ class AppTheme {
       ),
       textTheme: TextTheme(
           titleMedium: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: AppColors.blackColor,
-      )),
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blackColor,
+          ),
+          bodyMedium: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: AppColors.blackColor)),
       colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
       useMaterial3: true,
       iconButtonTheme: IconButtonThemeData(
@@ -144,7 +183,44 @@ class AppTheme {
             ),
             minimumSize: WidgetStatePropertyAll(Size(double.infinity, 56))),
       ));
+
   static ThemeData darkTheme = ThemeData(
+      useMaterial3: true,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        shape: CircleBorder(
+          side: BorderSide(
+            width: 5,
+            color: AppColors.darkThemeSecColor,
+          ),
+        ),
+        backgroundColor: AppColors.darkThemeColor,
+        foregroundColor: AppColors.darkThemeSecColor,
+        elevation: 2,
+        iconSize: 30,
+      ),
+      focusColor: AppColors.darkThemeSecColor,
+      primaryColorDark: AppColors.mainColor,
+      primaryColor: AppColors.darkThemeColor,
+      primaryColorLight: AppColors.darkThemeSecColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: AppColors.darkThemeSecColor,
+          unselectedItemColor: AppColors.darkThemeSecColor,
+          backgroundColor: AppColors.darkThemeColor,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppColors.darkThemeSecColor,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppColors.darkThemeSecColor,
+          ),
+          selectedIconTheme:
+              IconThemeData(size: 24, color: AppColors.darkThemeSecColor),
+          unselectedIconTheme:
+              IconThemeData(size: 24, color: AppColors.darkThemeSecColor)),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
         minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 56)),
@@ -248,10 +324,14 @@ class AppTheme {
       ),
       textTheme: TextTheme(
           titleMedium: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: AppColors.darkThemeSecColor,
-      )),
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.darkThemeSecColor,
+          ),
+          bodyMedium: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: AppColors.darkThemeSecColor)),
       iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
           shape: WidgetStatePropertyAll(CircleBorder(

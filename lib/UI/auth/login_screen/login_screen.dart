@@ -1,5 +1,6 @@
 import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
+import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 24,
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Login')),
+                  ElevatedButton(
+                      onPressed: () {
+                        // Handle login logic here
+                        Navigator.pushReplacementNamed(
+                            context, MainScreen.routeName);
+                      },
+                      child: Text('Login')),
                   SizedBox(
                     height: 24,
                   ),

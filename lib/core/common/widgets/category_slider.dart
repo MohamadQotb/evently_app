@@ -1,3 +1,4 @@
+import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:flutter/material.dart';
 
 class CategorySlider extends StatefulWidget {
@@ -21,13 +22,13 @@ class _CategorySliderState extends State<CategorySlider> {
           label: Row(
             children: [
               Icon(
-                Icons.explore_outlined,
+                CategorySliderModel.categories[index].icon,
                 color: selectedIndex == index
                     ? Theme.of(context).focusColor
                     : Theme.of(context).primaryColorLight,
               ),
               const SizedBox(width: 8),
-              Text('All')
+              Text(CategorySliderModel.categories[index].title)
             ],
           ),
           showCheckmark: false,
@@ -53,7 +54,7 @@ class _CategorySliderState extends State<CategorySlider> {
                 color: Theme.of(context).primaryColorDark,
               )),
         ),
-        itemCount: 10,
+        itemCount: CategorySliderModel.categories.length,
         scrollDirection: Axis.horizontal,
       ),
     );

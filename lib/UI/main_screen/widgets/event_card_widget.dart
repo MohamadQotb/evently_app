@@ -1,9 +1,14 @@
+import 'dart:math';
+
+import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventCardWidget extends StatelessWidget {
-  const EventCardWidget({super.key});
+  const EventCardWidget({super.key, required this.index});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class EventCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                AppAssets.sportsCategoryImage,
+                EventModel.dummyData[index].categoryValue.getImages(),
               ),
               fit: BoxFit.fill),
           borderRadius: BorderRadius.circular(16)),
@@ -31,7 +36,7 @@ class EventCardWidget extends StatelessWidget {
             ),
             child: Text(
               textAlign: TextAlign.center,
-              '21\nNov',
+              DateFormat('dd\nMMM').format(EventModel.dummyData[index].date),
               style: TextStyle(
                   height: 0,
                   fontSize: 20,
@@ -49,11 +54,13 @@ class EventCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'This is a Birthday Party',
+                  EventModel.dummyData[index].title,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Icon(
-                  Icons.favorite_border,
+                  EventModel.dummyData[index].isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: AppColors.mainColor,
                   size: 24,
                 ),

@@ -1,3 +1,4 @@
+import 'package:evently_app/UI/create_event/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/tabs/home_tab/home_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/love_tab/love_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/map_tab/map_tab.dart';
@@ -24,7 +25,9 @@ class _MainScreenState extends State<MainScreen> {
         child: Icon(
           Icons.add,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, CreateEventScreen.routeName);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: IndexedStack(

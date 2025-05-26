@@ -1,6 +1,7 @@
 import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
 import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
+import 'package:evently_app/UI/create_event/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routeName: (context) =>
             const ForgetPasswordScreen(),
         MainScreen.routeName: (context) => const MainScreen(),
+        CreateEventScreen.routeName: (context) => const CreateEventScreen(),
       },
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,

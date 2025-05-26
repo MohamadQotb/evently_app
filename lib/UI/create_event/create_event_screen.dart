@@ -1,0 +1,201 @@
+import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
+import 'package:evently_app/core/common/app_colors.dart';
+import 'package:flutter/material.dart';
+
+class CreateEventScreen extends StatefulWidget {
+  static const String routeName = '/createEvent';
+  const CreateEventScreen({super.key});
+
+  @override
+  State<CreateEventScreen> createState() => _CreateEventScreenState();
+}
+
+class _CreateEventScreenState extends State<CreateEventScreen> {
+  int selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Create Event',
+          style: TextStyle(color: AppColors.mainColor),
+        ),
+        leading: InkWell(
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.mainColor,
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  CategorySliderModel.categories[selectedIndex + 1].category
+                      .getImages(),
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 40,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
+                  itemCount: CategorySliderModel.categories.length - 1,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => ChoiceChip(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    labelPadding: EdgeInsets.zero,
+                    label: Row(
+                      children: [
+                        Icon(
+                          CategorySliderModel.categories[index + 1].icon,
+                          color: selectedIndex == index
+                              ? Theme.of(context).scaffoldBackgroundColor
+                              : AppColors.mainColor,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          CategorySliderModel.categories[index + 1].title,
+                        )
+                      ],
+                    ),
+                    showCheckmark: false,
+                    selected: selectedIndex == index,
+                    onSelected: (value) {
+                      selectedIndex = index;
+                      setState(() {});
+                    },
+                    backgroundColor: selectedIndex == index
+                        ? AppColors.mainColor
+                        : Theme.of(context).scaffoldBackgroundColor,
+                    labelStyle: TextStyle(
+                      color: selectedIndex == index
+                          ? Theme.of(context).scaffoldBackgroundColor
+                          : AppColors.mainColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    selectedColor: AppColors.mainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(46),
+                        side: BorderSide(
+                          color: AppColors.mainColor,
+                        )),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Title',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                decoration: InputDecoration(
+                    hintText: 'Event Title',
+                    prefixIcon: Icon(Icons.edit_square)),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Description',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                maxLines: 5,
+                decoration: InputDecoration(
+                  hintText: 'Event Description',
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_month_outlined,
+                    color: Theme.of(context).textTheme.titleMedium!.color,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Text('Event Date',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  Spacer(),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            fontStyle: FontStyle.normal),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(
+                    Icons.access_time_rounded,
+                    color: Theme.of(context).textTheme.titleMedium!.color,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Text('Event Time',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  Spacer(),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Choose Time',
+                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            fontStyle: FontStyle.normal),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Location',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(padding: EdgeInsets.all(8)),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.mainColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(Icons.my_location_sharp,
+                            size: 22,
+                            color: Theme.of(context).scaffoldBackgroundColor),
+                      ),
+                      const SizedBox(width: 8),
+                      Text('Choose Event Location'),
+                      Spacer(),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  )),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: () {}, child: Text('Add Event'))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

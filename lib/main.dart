@@ -1,7 +1,7 @@
 import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
 import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
-import 'package:evently_app/UI/create_event/create_event_screen.dart';
+import 'package:evently_app/UI/events/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
@@ -13,9 +13,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ChangeNotifierProvider(
       create: (context) => ThemeProvider(), child: const MyApp()));
 }

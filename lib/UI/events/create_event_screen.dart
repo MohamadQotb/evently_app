@@ -1,6 +1,7 @@
 import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CreateEventScreen extends StatefulWidget {
   static const String routeName = '/createEvent';
@@ -11,6 +12,10 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -102,7 +107,15 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
-              TextField(
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUnfocus,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+                controller: titleController,
                 decoration: InputDecoration(
                     hintText: 'Event Title',
                     prefixIcon: Icon(Icons.edit_square)),
@@ -114,6 +127,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: descriptionController,
                 maxLines: 5,
                 decoration: InputDecoration(
                   hintText: 'Event Description',
@@ -132,9 +146,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       style: Theme.of(context).textTheme.titleMedium),
                   Spacer(),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _selectDate();
+                      },
                       child: Text(
-                        'Choose Date',
+                        selectedDate == null
+                            ? 'Choose Date'
+                            : DateFormat('yyy/MM/dd').format(selectedDate!),
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             fontStyle: FontStyle.normal),
@@ -154,9 +172,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       style: Theme.of(context).textTheme.titleMedium),
                   Spacer(),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _selectTime();
+                      },
                       child: Text(
-                        'Choose Time',
+                        selectedTime == null
+                            ? 'Choose Time'
+                            : '${selectedTime!.hourOfPeriod}:${selectedTime!.minute} ${selectedTime!.period.name}',
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             fontStyle: FontStyle.normal),
@@ -197,5 +219,31 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _selectDate() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+    );
+    if (pickedDate != null) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _selectTime() async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: selectedTime ?? TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      setState(() {
+        selectedTime = pickedTime;
+      });
+    }
   }
 }

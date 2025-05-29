@@ -1,11 +1,12 @@
+import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
 import 'package:evently_app/UI/events/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/tabs/home_tab/home_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/love_tab/love_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/map_tab/map_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/profile_tab/profile_tab.dart';
 import 'package:evently_app/core/common/app_assets.dart';
-import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/mainScreen';
@@ -18,17 +19,25 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   List<Widget> tabs = [
-    HomeTab(),
-    MapTab(),
-    LoveTab(),
-    ProfileTab(),
+    const HomeTab(),
+    const MapTab(),
+    const LoveTab(),
+    const ProfileTab(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (context.read<UserAuthProvider>().userModel == null) {
+      context.read<UserAuthProvider>().getUser();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
         onPressed: () {
@@ -57,12 +66,12 @@ class _MainScreenState extends State<MainScreen> {
             ),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.location_on_outlined),
             activeIcon: Icon(Icons.location_on),
             label: 'Map',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline_rounded),
             activeIcon: Icon(Icons.favorite),
             label: 'Love',

@@ -30,12 +30,12 @@ class EventCardWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Text(
               textAlign: TextAlign.center,
               DateFormat('dd\nMMM').format(eventModel.date),
-              style: TextStyle(
+              style: const TextStyle(
                   height: 0,
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -46,7 +46,7 @@ class EventCardWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

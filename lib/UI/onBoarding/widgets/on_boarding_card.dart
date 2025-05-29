@@ -18,7 +18,7 @@ class OnBoardingCard extends StatelessWidget {
         ),
         Text(
           onBoardingModelClass.title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
               color: AppColors.mainColor),

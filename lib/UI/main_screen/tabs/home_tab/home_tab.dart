@@ -11,7 +11,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeTabProvider(),
-      child: Column(
+      child: const Column(
         children: [HomeHeaderView(), Expanded(child: EventsView())],
       ),
     );

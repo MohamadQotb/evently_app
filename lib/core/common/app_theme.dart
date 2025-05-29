@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         shape: CircleBorder(
           side: BorderSide(
             width: 5,
@@ -19,17 +19,17 @@ class AppTheme {
       primaryColor: AppColors.mainColor,
       primaryColorLight: AppColors.lightThemeColor,
       primaryColorDark: AppColors.lightThemeColor,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: AppColors.lightThemeColor,
           unselectedItemColor: AppColors.lightThemeColor,
           backgroundColor: AppColors.mainColor,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: const TextStyle(
+          selectedLabelStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: AppColors.lightThemeColor,
           ),
-          unselectedLabelStyle: const TextStyle(
+          unselectedLabelStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: AppColors.lightThemeColor,
@@ -86,7 +86,7 @@ class AppTheme {
       ),
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightThemeColor,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -103,32 +103,32 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: AppColors.greyColor,
               width: 1,
             )),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.greyColor,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.greyColor,
             width: 1,
           ),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.greyColor,
             width: 1,
           ),
         ),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: AppColors.greyColor,
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -140,7 +140,7 @@ class AppTheme {
           horizontal: 16,
         ),
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
           titleMedium: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -152,7 +152,7 @@ class AppTheme {
               color: AppColors.blackColor)),
       colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
       useMaterial3: true,
-      iconButtonTheme: IconButtonThemeData(
+      iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
           shape: WidgetStatePropertyAll(CircleBorder(
               side: BorderSide(
@@ -166,27 +166,29 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(AppColors.mainColor),
+            backgroundColor: const WidgetStatePropertyAll(AppColors.mainColor),
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             )),
-            padding: WidgetStatePropertyAll(const EdgeInsets.symmetric(
+            padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
               vertical: 16,
               horizontal: 24,
             )),
-            foregroundColor: WidgetStatePropertyAll(AppColors.lightThemeColor),
-            textStyle: WidgetStatePropertyAll(
-              const TextStyle(
+            foregroundColor:
+                const WidgetStatePropertyAll(AppColors.lightThemeColor),
+            textStyle: const WidgetStatePropertyAll(
+              TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 56))),
+            minimumSize:
+                const WidgetStatePropertyAll(Size(double.infinity, 56))),
       ));
 
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         shape: CircleBorder(
           side: BorderSide(
             width: 5,
@@ -202,17 +204,17 @@ class AppTheme {
       primaryColorDark: AppColors.mainColor,
       primaryColor: AppColors.darkThemeColor,
       primaryColorLight: AppColors.darkThemeSecColor,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: AppColors.darkThemeSecColor,
           unselectedItemColor: AppColors.darkThemeSecColor,
           backgroundColor: AppColors.darkThemeColor,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: const TextStyle(
+          selectedLabelStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: AppColors.darkThemeSecColor,
           ),
-          unselectedLabelStyle: const TextStyle(
+          unselectedLabelStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: AppColors.darkThemeSecColor,
@@ -268,7 +270,7 @@ class AppTheme {
       ),
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkThemeColor,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -285,32 +287,32 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: AppColors.mainColor,
               width: 1,
             )),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.mainColor,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.mainColor,
             width: 1,
           ),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.mainColor,
             width: 1,
           ),
         ),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: AppColors.darkThemeSecColor,
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -322,7 +324,7 @@ class AppTheme {
           horizontal: 16,
         ),
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
           titleMedium: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -332,7 +334,7 @@ class AppTheme {
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.darkThemeSecColor)),
-      iconButtonTheme: IconButtonThemeData(
+      iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
           shape: WidgetStatePropertyAll(CircleBorder(
               side: BorderSide(
@@ -346,21 +348,23 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(AppColors.mainColor),
+            backgroundColor: const WidgetStatePropertyAll(AppColors.mainColor),
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             )),
-            padding: WidgetStatePropertyAll(const EdgeInsets.symmetric(
+            padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
               vertical: 16,
               horizontal: 24,
             )),
-            foregroundColor: WidgetStatePropertyAll(AppColors.lightThemeColor),
-            textStyle: WidgetStatePropertyAll(
-              const TextStyle(
+            foregroundColor:
+                const WidgetStatePropertyAll(AppColors.lightThemeColor),
+            textStyle: const WidgetStatePropertyAll(
+              TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 56))),
+            minimumSize:
+                const WidgetStatePropertyAll(Size(double.infinity, 56))),
       ));
 }

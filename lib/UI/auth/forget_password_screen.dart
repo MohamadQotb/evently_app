@@ -9,9 +9,9 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forget Password'),
+        title: const Text('Forget Password'),
         leading: InkWell(
-          child: Icon(Icons.arrow_back),
+          child: const Icon(Icons.arrow_back),
           onTap: () {
             Navigator.pop(context);
           },
@@ -29,14 +29,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                   height: 24,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: 'Email',
-                      prefixIcon: const Icon(Icons.email_rounded)),
+                      prefixIcon: Icon(Icons.email_rounded)),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                ElevatedButton(onPressed: () {}, child: Text('Reset Password'))
+                ElevatedButton(onPressed: () {}, child: const Text('Reset Password'))
               ],
             ),
           ],

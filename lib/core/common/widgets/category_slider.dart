@@ -19,7 +19,7 @@ class _CategorySliderState extends State<CategorySlider> {
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) => ChoiceChip(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           labelPadding: EdgeInsets.zero,
           label: Row(
             children: [

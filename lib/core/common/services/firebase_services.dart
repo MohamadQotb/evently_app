@@ -1,10 +1,59 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently_app/UI/auth/models/user_model.dart';
 import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
+  static Future<UserModel?> userLogin(
+      {required String email, required String password}) async {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    if (userCredential.user?.uid != null) {
+      UserModel? userModel = await getUserInfo(userCredential.user!.uid);
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel> userSignUp(
+      {required String email,
+      required String password,
+      required String name}) async {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    UserModel user =
+        UserModel(email: email, name: name, uid: userCredential.user!.uid);
+    await addNewUser(user);
+    return user;
+  }
+
+  static CollectionReference<UserModel> getUserCollection() {
+    CollectionReference<UserModel> collection =
+        FirebaseFirestore.instance.collection('Users').withConverter<UserModel>(
+              fromFirestore: (snapshot, options) =>
+                  UserModel.fromJson(snapshot.data() ?? {}),
+              toFirestore: (value, options) => value.toJson(),
+            );
+    return collection;
+  }
+
+  static Future<void> addNewUser(UserModel userModel) async {
+    CollectionReference<UserModel> collection = getUserCollection();
+    DocumentReference<UserModel> doc = collection.doc(userModel.uid);
+
+    await doc.set(userModel);
+  }
+
+  static Future<UserModel?> getUserInfo(String uid) async {
+    CollectionReference<UserModel> collection = getUserCollection();
+    DocumentSnapshot<UserModel> user = await collection.doc(uid).get();
+    return user.data();
+  }
+
   static CollectionReference<EventModel> getCollection() {
-    CollectionReference<EventModel> collection = FirebaseFirestore.instance
+    CollectionReference<EventModel> collection = getUserCollection()
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('Events')
         .withConverter<EventModel>(
           fromFirestore: (snapshot, options) =>

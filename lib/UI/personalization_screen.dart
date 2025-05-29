@@ -29,7 +29,7 @@ class PersonalizationScreen extends StatelessWidget {
                 width: double.infinity,
                 height: height * .45,
               ),
-              Row(
+              const Row(
                 children: [
                   Text(
                     'Personalize Your Experience',
@@ -47,7 +47,7 @@ class PersonalizationScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Language',
                     style: TextStyle(
                         fontSize: 20,
@@ -55,8 +55,8 @@ class PersonalizationScreen extends StatelessWidget {
                         color: AppColors.mainColor),
                   ),
                   ToggleSwitch(
-                    activeBgColor: [AppColors.mainColor],
-                    borderColor: [AppColors.mainColor],
+                    activeBgColor: const [AppColors.mainColor],
+                    borderColor: const [AppColors.mainColor],
                     borderWidth: 2,
                     cornerRadius: 30,
                     customWidgets: [
@@ -79,7 +79,7 @@ class PersonalizationScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Theme',
                     style: TextStyle(
                         fontSize: 20,
@@ -95,11 +95,11 @@ class PersonalizationScreen extends StatelessWidget {
                                 ThemeMode.light
                             ? 0
                             : 1,
-                    activeBgColor: [AppColors.mainColor],
-                    borderColor: [AppColors.mainColor],
+                    activeBgColor: const [AppColors.mainColor],
+                    borderColor: const [AppColors.mainColor],
                     borderWidth: 2,
                     cornerRadius: 30,
-                    icons: [
+                    icons: const [
                       Icons.light_mode_outlined,
                       Icons.dark_mode,
                     ],
@@ -118,7 +118,7 @@ class PersonalizationScreen extends StatelessWidget {
                     Navigator.pushReplacementNamed(
                         context, OnBoardingScreen.routeName);
                   },
-                  child: Text('Let’s Start')),
+                  child: const Text('Let’s Start')),
             ],
           ),
         ),

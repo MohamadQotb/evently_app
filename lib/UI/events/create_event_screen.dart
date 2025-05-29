@@ -24,12 +24,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Create Event',
           style: TextStyle(color: AppColors.mainColor),
         ),
         leading: InkWell(
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.mainColor,
           ),
@@ -39,7 +39,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           Form(
             key: formKey,
@@ -65,8 +65,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     itemCount: CategorySliderModel.categories.length - 1,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => ChoiceChip(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       labelPadding: EdgeInsets.zero,
                       label: Row(
                         children: [
@@ -86,7 +86,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       selected: selectedIndex == index,
                       onSelected: (value) {
                         selectedIndex = index;
-                        print('Selected Index: $selectedIndex');
+
                         setState(() {});
                       },
                       backgroundColor: selectedIndex == index
@@ -102,7 +102,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       selectedColor: AppColors.mainColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(46),
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: AppColors.mainColor,
                           )),
                     ),
@@ -122,7 +122,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     return null;
                   },
                   controller: titleController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: 'Event Title',
                       prefixIcon: Icon(Icons.edit_square)),
                 ),
@@ -138,7 +138,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       : null,
                   controller: descriptionController,
                   maxLines: 4,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Event Description',
                   ),
                 ),
@@ -153,7 +153,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     const SizedBox(width: 8),
                     Text('Event Date',
                         style: Theme.of(context).textTheme.titleMedium),
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
                         onPressed: () {
                           _selectDate();
@@ -162,7 +162,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           selectedDate == null
                               ? 'Choose Date'
                               : DateFormat('yyy/MM/dd').format(selectedDate!),
-                          style: TextStyle(
+                          style: const TextStyle(
                               decoration: TextDecoration.none,
                               fontStyle: FontStyle.normal),
                         ))
@@ -179,7 +179,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     const SizedBox(width: 8),
                     Text('Event Time',
                         style: Theme.of(context).textTheme.titleMedium),
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
                         onPressed: () {
                           _selectTime();
@@ -188,7 +188,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           selectedTime == null
                               ? 'Choose Time'
                               : '${selectedTime!.hourOfPeriod}:${selectedTime!.minute} ${selectedTime!.period.name}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               decoration: TextDecoration.none,
                               fontStyle: FontStyle.normal),
                         ))
@@ -201,12 +201,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
                 const SizedBox(height: 8),
                 OutlinedButton(
-                    style: OutlinedButton.styleFrom(padding: EdgeInsets.all(8)),
+                    style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.all(8)),
                     onPressed: () {},
                     child: Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: AppColors.mainColor,
                             borderRadius: BorderRadius.circular(8),
@@ -216,9 +217,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor),
                         ),
                         const SizedBox(width: 8),
-                        Text('Choose Event Location'),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios)
+                        const Text('Choose Event Location'),
+                        const Spacer(),
+                        const Icon(Icons.arrow_forward_ios)
                       ],
                     )),
                 const SizedBox(height: 16),
@@ -234,19 +235,19 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             description: descriptionController.text,
                             date: selectedDate!));
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                               content: Text('Event Created Successfully!')),
                         );
                         Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                               content: Text(
                                   'Please fill all fields and select date/time')),
                         );
                       }
                     },
-                    child: Text('Add Event'))
+                    child: const Text('Add Event'))
               ],
             ),
           ),

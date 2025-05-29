@@ -1,5 +1,5 @@
+import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
 import 'package:evently_app/core/common/widgets/category_slider.dart';
-import 'package:evently_app/main.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class HomeHeaderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
@@ -37,7 +37,7 @@ class HomeHeaderView extends StatelessWidget {
                       ),
                     ), //TODO:UserName
                     Text(
-                      'John Safwat',
+                      context.watch<UserAuthProvider>().userModel?.name ?? '',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -95,7 +95,7 @@ class HomeHeaderView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            CategorySlider()
+            const CategorySlider()
           ],
         ),
       ),

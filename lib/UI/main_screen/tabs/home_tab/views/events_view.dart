@@ -1,4 +1,3 @@
-import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/UI/main_screen/tabs/home_tab/provider/home_tab_provider.dart';
 import 'package:evently_app/UI/main_screen/widgets/event_card_widget.dart';
@@ -31,7 +30,7 @@ class _EventsViewState extends State<EventsView> {
           return RefreshIndicator(
             onRefresh: () {
               return Future.delayed(
-                Duration(seconds: 1),
+                const Duration(seconds: 1),
                 () => setState(() {}),
               );
             },
@@ -43,7 +42,7 @@ class _EventsViewState extends State<EventsView> {
                 itemBuilder: (context, index) => EventCardWidget(
                       eventModel: events[index],
                     ),
-                separatorBuilder: (context, index) => SizedBox(
+                separatorBuilder: (context, index) => const SizedBox(
                       height: 6,
                     ),
                 itemCount: events.length),

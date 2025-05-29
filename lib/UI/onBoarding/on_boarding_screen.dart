@@ -9,7 +9,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = '/onBoardingScreen';
 
-  OnBoardingScreen({super.key});
+  const OnBoardingScreen({super.key});
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -68,7 +68,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         onPressed: () {
                           previousPage();
                         },
-                        icon: Icon(Icons.arrow_back)),
+                        icon: const Icon(Icons.arrow_back)),
                   ),
                   SmoothPageIndicator(
                     controller: controller,
@@ -90,7 +90,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           nextPage();
                         }
                       },
-                      icon: Icon(Icons.arrow_forward)),
+                      icon: const Icon(Icons.arrow_forward)),
                 ],
               )
             ],

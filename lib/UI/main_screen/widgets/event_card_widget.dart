@@ -1,14 +1,12 @@
-import 'dart:math';
-
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
-import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventCardWidget extends StatelessWidget {
-  const EventCardWidget({super.key, required this.index});
-  final int index;
+  const EventCardWidget({super.key, required this.eventModel});
+
+  final EventModel eventModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class EventCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                EventModel.dummyData[index].categoryValue.getImages(),
+                eventModel.categoryValue.getImages(),
               ),
               fit: BoxFit.fill),
           borderRadius: BorderRadius.circular(16)),
@@ -36,7 +34,7 @@ class EventCardWidget extends StatelessWidget {
             ),
             child: Text(
               textAlign: TextAlign.center,
-              DateFormat('dd\nMMM').format(EventModel.dummyData[index].date),
+              DateFormat('dd\nMMM').format(eventModel.date),
               style: TextStyle(
                   height: 0,
                   fontSize: 20,
@@ -54,11 +52,11 @@ class EventCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  EventModel.dummyData[index].title,
+                  eventModel.title,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Icon(
-                  EventModel.dummyData[index].isFavorite
+                  eventModel.isFavorite
                       ? Icons.favorite
                       : Icons.favorite_border,
                   color: AppColors.mainColor,

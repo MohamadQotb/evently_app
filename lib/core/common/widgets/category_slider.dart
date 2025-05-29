@@ -1,5 +1,7 @@
 import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
+import 'package:evently_app/UI/main_screen/tabs/home_tab/provider/home_tab_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CategorySlider extends StatefulWidget {
   const CategorySlider({super.key});
@@ -35,6 +37,9 @@ class _CategorySliderState extends State<CategorySlider> {
           selected: selectedIndex == index,
           onSelected: (value) {
             selectedIndex = index;
+            context
+                .read<HomeTabProvider>()
+                .changeCategory(CategoryValues.values[index]);
             setState(() {});
           },
           backgroundColor: selectedIndex == index

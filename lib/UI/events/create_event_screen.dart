@@ -1,5 +1,7 @@
 import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
+import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:evently_app/core/common/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,6 +19,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   int selectedIndex = 0;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,183 +41,214 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  CategorySliderModel.categories[selectedIndex + 1].category
-                      .getImages(),
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+          Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    CategorySliderModel.categories[selectedIndex + 1].category
+                        .getImages(),
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 40,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  itemCount: CategorySliderModel.categories.length - 1,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => ChoiceChip(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    labelPadding: EdgeInsets.zero,
-                    label: Row(
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 40,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    itemCount: CategorySliderModel.categories.length - 1,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => ChoiceChip(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      labelPadding: EdgeInsets.zero,
+                      label: Row(
+                        children: [
+                          Icon(
+                            CategorySliderModel.categories[index + 1].icon,
+                            color: selectedIndex == index
+                                ? Theme.of(context).scaffoldBackgroundColor
+                                : AppColors.mainColor,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            CategorySliderModel.categories[index + 1].title,
+                          )
+                        ],
+                      ),
+                      showCheckmark: false,
+                      selected: selectedIndex == index,
+                      onSelected: (value) {
+                        selectedIndex = index;
+                        print('Selected Index: $selectedIndex');
+                        setState(() {});
+                      },
+                      backgroundColor: selectedIndex == index
+                          ? AppColors.mainColor
+                          : Theme.of(context).scaffoldBackgroundColor,
+                      labelStyle: TextStyle(
+                        color: selectedIndex == index
+                            ? Theme.of(context).scaffoldBackgroundColor
+                            : AppColors.mainColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      selectedColor: AppColors.mainColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(46),
+                          side: BorderSide(
+                            color: AppColors.mainColor,
+                          )),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Title',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a title';
+                    }
+                    return null;
+                  },
+                  controller: titleController,
+                  decoration: InputDecoration(
+                      hintText: 'Event Title',
+                      prefixIcon: Icon(Icons.edit_square)),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Description',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Please enter a description'
+                      : null,
+                  controller: descriptionController,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: 'Event Description',
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_month_outlined,
+                      color: Theme.of(context).textTheme.titleMedium!.color,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Event Date',
+                        style: Theme.of(context).textTheme.titleMedium),
+                    Spacer(),
+                    TextButton(
+                        onPressed: () {
+                          _selectDate();
+                        },
+                        child: Text(
+                          selectedDate == null
+                              ? 'Choose Date'
+                              : DateFormat('yyy/MM/dd').format(selectedDate!),
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontStyle: FontStyle.normal),
+                        ))
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time_rounded,
+                      color: Theme.of(context).textTheme.titleMedium!.color,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Event Time',
+                        style: Theme.of(context).textTheme.titleMedium),
+                    Spacer(),
+                    TextButton(
+                        onPressed: () {
+                          _selectTime();
+                        },
+                        child: Text(
+                          selectedTime == null
+                              ? 'Choose Time'
+                              : '${selectedTime!.hourOfPeriod}:${selectedTime!.minute} ${selectedTime!.period.name}',
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontStyle: FontStyle.normal),
+                        ))
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Location',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton(
+                    style: OutlinedButton.styleFrom(padding: EdgeInsets.all(8)),
+                    onPressed: () {},
+                    child: Row(
                       children: [
-                        Icon(
-                          CategorySliderModel.categories[index + 1].icon,
-                          color: selectedIndex == index
-                              ? Theme.of(context).scaffoldBackgroundColor
-                              : AppColors.mainColor,
+                        Container(
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(Icons.my_location_sharp,
+                              size: 22,
+                              color: Theme.of(context).scaffoldBackgroundColor),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          CategorySliderModel.categories[index + 1].title,
-                        )
+                        Text('Choose Event Location'),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios)
                       ],
-                    ),
-                    showCheckmark: false,
-                    selected: selectedIndex == index,
-                    onSelected: (value) {
-                      selectedIndex = index;
-                      setState(() {});
+                    )),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate() &&
+                          selectedDate != null &&
+                          selectedTime != null) {
+                        FirebaseServices.addEvent(EventModel(
+                            categoryValue:
+                                CategoryValues.values[selectedIndex + 1],
+                            title: titleController.text,
+                            description: descriptionController.text,
+                            date: selectedDate!));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Event Created Successfully!')),
+                        );
+                        Navigator.pop(context);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  'Please fill all fields and select date/time')),
+                        );
+                      }
                     },
-                    backgroundColor: selectedIndex == index
-                        ? AppColors.mainColor
-                        : Theme.of(context).scaffoldBackgroundColor,
-                    labelStyle: TextStyle(
-                      color: selectedIndex == index
-                          ? Theme.of(context).scaffoldBackgroundColor
-                          : AppColors.mainColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    selectedColor: AppColors.mainColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(46),
-                        side: BorderSide(
-                          color: AppColors.mainColor,
-                        )),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Title',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUnfocus,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-                controller: titleController,
-                decoration: InputDecoration(
-                    hintText: 'Event Title',
-                    prefixIcon: Icon(Icons.edit_square)),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Description',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: descriptionController,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: 'Event Description',
-                ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_month_outlined,
-                    color: Theme.of(context).textTheme.titleMedium!.color,
-                    size: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Text('Event Date',
-                      style: Theme.of(context).textTheme.titleMedium),
-                  Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        _selectDate();
-                      },
-                      child: Text(
-                        selectedDate == null
-                            ? 'Choose Date'
-                            : DateFormat('yyy/MM/dd').format(selectedDate!),
-                        style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontStyle: FontStyle.normal),
-                      ))
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(
-                    Icons.access_time_rounded,
-                    color: Theme.of(context).textTheme.titleMedium!.color,
-                    size: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Text('Event Time',
-                      style: Theme.of(context).textTheme.titleMedium),
-                  Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        _selectTime();
-                      },
-                      child: Text(
-                        selectedTime == null
-                            ? 'Choose Time'
-                            : '${selectedTime!.hourOfPeriod}:${selectedTime!.minute} ${selectedTime!.period.name}',
-                        style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontStyle: FontStyle.normal),
-                      ))
-                ],
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Location',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              OutlinedButton(
-                  style: OutlinedButton.styleFrom(padding: EdgeInsets.all(8)),
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(Icons.my_location_sharp,
-                            size: 22,
-                            color: Theme.of(context).scaffoldBackgroundColor),
-                      ),
-                      const SizedBox(width: 8),
-                      Text('Choose Event Location'),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios)
-                    ],
-                  )),
-              const SizedBox(height: 16),
-              ElevatedButton(onPressed: () {}, child: Text('Add Event'))
-            ],
+                    child: Text('Add Event'))
+              ],
+            ),
           ),
         ],
       ),
@@ -243,6 +277,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     if (pickedTime != null) {
       setState(() {
         selectedTime = pickedTime;
+        selectedDate = selectedDate!.copyWith(
+          hour: pickedTime.hour,
+          minute: pickedTime.minute,
+        );
       });
     }
   }

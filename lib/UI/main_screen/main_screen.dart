@@ -17,6 +17,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  List<Widget> tabs = [
+    HomeTab(),
+    MapTab(),
+    LoveTab(),
+    ProfileTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +36,7 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: IndexedStack(
-        index: _currentIndex, // Change this index to switch between tabs
-        children: const [
-          HomeTab(),
-          MapTab(),
-          LoveTab(),
-          ProfileTab(),
-        ],
-      ),
+      body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

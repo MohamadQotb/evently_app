@@ -33,26 +33,30 @@ class ProfileHeaderWidget extends StatelessWidget {
             SizedBox(
               width: 16,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(context.watch<UserAuthProvider>().userModel?.name ?? '',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).primaryColorLight,
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(context.watch<UserAuthProvider>().userModel?.email ?? '',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).primaryColorLight,
-                    )),
-              ],
-            )
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.watch<UserAuthProvider>().userModel?.name ?? '',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).primaryColorLight,
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(context.watch<UserAuthProvider>().userModel?.email ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColorLight,
+                      )),
+                ],
+              ),
+            ),
           ],
         ),
       ),

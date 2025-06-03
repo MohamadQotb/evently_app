@@ -141,6 +141,11 @@ class AppTheme {
         ),
       ),
       textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: AppColors.blackColor,
+          ),
           titleMedium: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -325,6 +330,11 @@ class AppTheme {
         ),
       ),
       textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: AppColors.darkThemeSecColor,
+          ),
           titleMedium: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,

@@ -8,6 +8,7 @@ class AppAssets {
   static const String appLogo = 'assets/Logo.png';
   static const String resetPasswordImage =
       'assets/images/resetPasswordImage.png';
+  static const String routeImage = 'assets/images/routeImage.jpg';
 
   //category images
   static const String sportsCategoryImage =

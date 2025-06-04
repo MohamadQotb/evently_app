@@ -1,7 +1,6 @@
 import 'package:evently_app/UI/main_screen/tabs/profile_tab/widgets/drop_down_widget.dart';
 import 'package:evently_app/UI/main_screen/tabs/profile_tab/widgets/profile_header_widget.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
-import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

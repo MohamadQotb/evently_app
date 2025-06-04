@@ -1,5 +1,6 @@
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:evently_app/core/common/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,7 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: UniqueKey(),
       margin: const EdgeInsets.symmetric(vertical: 12),
       padding: const EdgeInsets.all(8),
       width: double.infinity,
@@ -55,17 +57,43 @@ class EventCardWidget extends StatelessWidget {
                   eventModel.title,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Icon(
-                  eventModel.isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: AppColors.mainColor,
-                  size: 24,
-                ),
+                FavButton(eventModel: eventModel),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FavButton extends StatefulWidget {
+  const FavButton({
+    super.key,
+    required this.eventModel,
+  });
+
+  final EventModel eventModel;
+
+  @override
+  State<FavButton> createState() => _FavButtonState();
+}
+
+class _FavButtonState extends State<FavButton> {
+  late bool isFav = widget.eventModel.isFavorite;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          isFav = !isFav;
+        });
+        FirebaseServices.changeEventFav(widget.eventModel, isFav);
+      },
+      child: Icon(
+        isFav ? Icons.favorite : Icons.favorite_border,
+        color: AppColors.mainColor,
+        size: 24,
       ),
     );
   }

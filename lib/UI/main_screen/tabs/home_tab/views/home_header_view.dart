@@ -95,7 +95,7 @@ class HomeHeaderView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const CategorySlider()
+            CategorySlider()
           ],
         ),
       ),

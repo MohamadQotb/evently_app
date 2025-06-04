@@ -79,4 +79,24 @@ class FirebaseServices {
         .get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
+
+  static Future changeEventFav(EventModel eventModel, bool favValue) async {
+    CollectionReference<EventModel> collection = getCollection();
+    await collection.doc(eventModel.id).update({'isFavorite': favValue});
+  }
+
+  static Stream<List<EventModel>> getFavEvents() {
+    CollectionReference<EventModel> collection = getCollection();
+    Stream<QuerySnapshot<EventModel>> snapshot = collection
+        .orderBy('date')
+        .where('isFavorite', isEqualTo: true)
+        .snapshots();
+    return snapshot.map(
+      (event) => event.docs
+          .map(
+            (e) => e.data(),
+          )
+          .toList(),
+    );
+  }
 }

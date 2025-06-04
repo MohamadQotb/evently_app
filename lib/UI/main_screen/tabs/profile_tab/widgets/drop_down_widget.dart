@@ -2,11 +2,11 @@ import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DropDownWidget extends StatefulWidget {
-  String? selected;
-  List<DropdownMenuItem<String>>? items;
-  void Function(String?)? onChanged;
+  final String? selected;
+  final List<DropdownMenuItem<String>>? items;
+  final void Function(String?)? onChanged;
 
-  DropDownWidget(
+  const DropDownWidget(
       {super.key,
       required this.selected,
       required this.items,

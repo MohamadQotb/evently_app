@@ -9,6 +9,8 @@ class EventModel {
   bool isFavorite;
   double? latitude;
   double? longitude;
+  String? country;
+  String? city;
   EventModel({
     this.id = '',
     this.isFavorite = false,
@@ -18,6 +20,8 @@ class EventModel {
     required this.date,
     this.latitude = 0.0,
     this.longitude = 0.0,
+    this.country = 'Unknown',
+    this.city = 'Unknown',
   });
 
   Map<String, dynamic> toJson() {
@@ -30,6 +34,8 @@ class EventModel {
       'isFavorite': isFavorite,
       'latitude': latitude,
       'longitude': longitude,
+      'country': country,
+      'city': city,
     };
   }
 
@@ -44,6 +50,8 @@ class EventModel {
       isFavorite: json['isFavorite'] as bool,
       latitude: json['latitude'] ?? 0.0,
       longitude: json['longitude'] ?? 0.0,
+      country: json['country'] ?? 'Unknown',
+      city: json['city'] ?? 'Unknown',
     );
   }
 }

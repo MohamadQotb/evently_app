@@ -23,9 +23,7 @@ class MapsTabProvider extends ChangeNotifier {
 
   Future<void> getLocation() async {
     bool isGranted = await _getLocationPermission();
-    if (!isGranted) {
-      return;
-    }
+    if (!isGranted) {}
     bool serviceEnabled = await _checkLocationService();
     if (serviceEnabled) {}
     LocationData locationData = await location.getLocation();
@@ -61,5 +59,23 @@ class MapsTabProvider extends ChangeNotifier {
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(cameraPosition),
     );
+  }
+
+  void changeCameraPosition(LatLng latLng, String? title) {
+    cameraPosition = CameraPosition(
+      target: latLng,
+      zoom: 14.4746,
+    );
+    markers.add(Marker(
+      markerId: MarkerId(UniqueKey().toString()),
+      position: LatLng(latLng.latitude, latLng.longitude),
+      infoWindow: InfoWindow(
+        title: title ?? 'Selected Location',
+      ),
+    ));
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(cameraPosition),
+    );
+    notifyListeners();
   }
 }

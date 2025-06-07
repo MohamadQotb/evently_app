@@ -2,7 +2,6 @@ import 'package:evently_app/UI/events/create_event/providers/create_event_provid
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 
 class PickEventLocationScreen extends StatelessWidget {
   static const String routeName = '/pickEventLocationScreen';

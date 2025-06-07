@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
 import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
@@ -32,6 +30,9 @@ void main() async {
     ChangeNotifierProvider(
       create: (context) => CreateEventProvider(),
     ),
+    ChangeNotifierProvider(
+      create: (context) => MapsTabProvider(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -50,8 +51,7 @@ class MyApp extends StatelessWidget {
         RegesterScreen.routeName: (context) => const RegesterScreen(),
         ForgetPasswordScreen.routeName: (context) =>
             const ForgetPasswordScreen(),
-        MainScreen.routeName: (context) => ChangeNotifierProvider(
-            create: (context) => MapsTabProvider(), child: const MainScreen()),
+        MainScreen.routeName: (context) => const MainScreen(),
         CreateEventScreen.routeName: (context) => const CreateEventScreen(),
         PickEventLocationScreen.routeName: (context) {
           var provider =

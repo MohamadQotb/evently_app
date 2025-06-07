@@ -1,4 +1,5 @@
 import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
+import 'package:evently_app/UI/main_screen/tabs/home_tab/provider/home_tab_provider.dart';
 import 'package:evently_app/core/common/widgets/category_slider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class HomeHeaderView extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  'Cairo, Egypt',
+                  '${context.watch<HomeTabProvider>().city} , ${context.watch<HomeTabProvider>().country}',
                   style: TextStyle(
                     color: Theme.of(context).primaryColorLight,
                     fontSize: 14,

@@ -4,7 +4,6 @@ import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/core/common/services/firebase_services.dart';
-import 'package:evently_app/main.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -233,7 +232,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             ? const Text('Choose Event Location')
                             : Expanded(
                                 child: Text(
-                                  'location: ${provider.selectedLocation!.longitude}: ${provider.selectedLocation!.latitude}',
+                                  '${provider.city}, ${provider.country}',
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -251,6 +250,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           selectedTime != null &&
                           provider.selectedLocation != null) {
                         FirebaseServices.addEvent(EventModel(
+                            city: provider.city,
+                            country: provider.country,
                             longitude:
                                 provider.selectedLocation?.longitude ?? 0,
                             latitude: provider.selectedLocation?.latitude ?? 0,

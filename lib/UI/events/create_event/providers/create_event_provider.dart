@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:geocoding/geocoding.dart' as geocoding;
 
 class CreateEventProvider extends ChangeNotifier {
   Location location = Location();
   Set<Marker> markers = {};
+  String? country;
+  String? city;
 
   late GoogleMapController mapController;
   CameraPosition cameraPosition = const CameraPosition(
@@ -78,6 +81,7 @@ class CreateEventProvider extends ChangeNotifier {
         ),
       ),
     );
+    convertLatLngToAddress(position);
 
     notifyListeners();
   }
@@ -85,5 +89,26 @@ class CreateEventProvider extends ChangeNotifier {
   void clearSelectedLocation() {
     selectedLocation = null;
     notifyListeners();
+  }
+
+  Future<void> convertLatLngToAddress(LatLng position) async {
+    List<geocoding.Placemark> placemarks =
+        await geocoding.placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    if (placemarks.isNotEmpty) {
+      country = placemarks[0].country;
+      city = placemarks[0].locality;
+      notifyListeners();
+    } else if (position.latitude == 0.0 && position.longitude == 0.0) {
+      country = 'Unknown';
+      city = 'Unknown';
+      notifyListeners();
+    } else {
+      country = 'Unknown';
+      city = 'Unknown';
+      notifyListeners();
+    }
   }
 }

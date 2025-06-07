@@ -4,6 +4,7 @@ import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
 import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/events/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
+import 'package:evently_app/UI/main_screen/tabs/map_tab/provider/maps_tab_provider.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
 import 'package:evently_app/core/common/app_theme.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
         RegesterScreen.routeName: (context) => const RegesterScreen(),
         ForgetPasswordScreen.routeName: (context) =>
             const ForgetPasswordScreen(),
-        MainScreen.routeName: (context) => const MainScreen(),
+        MainScreen.routeName: (context) => ChangeNotifierProvider(
+            create: (context) => MapsTabProvider(), child: const MainScreen()),
         CreateEventScreen.routeName: (context) => const CreateEventScreen(),
       },
       title: 'Flutter Demo',

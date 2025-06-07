@@ -1,7 +1,12 @@
+import 'package:evently_app/UI/events/create_event/pick_event_location_screen.dart';
+import 'package:evently_app/UI/events/create_event/providers/create_event_provider.dart';
 import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/core/common/services/firebase_services.dart';
+import 'package:evently_app/main.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -22,6 +27,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    CreateEventProvider provider = Provider.of<CreateEventProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -115,6 +121,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a title';
@@ -133,6 +140,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
+                  keyboardType: TextInputType.text,
                   validator: (value) => value == null || value.isEmpty
                       ? 'Please enter a description'
                       : null,
@@ -203,7 +211,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 OutlinedButton(
                     style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.all(8)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, PickEventLocationScreen.routeName,
+                          arguments: provider);
+                    },
                     child: Row(
                       children: [
                         Container(
@@ -217,7 +229,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor),
                         ),
                         const SizedBox(width: 8),
-                        const Text('Choose Event Location'),
+                        provider.selectedLocation == null
+                            ? const Text('Choose Event Location')
+                            : Expanded(
+                                child: Text(
+                                  'location: ${provider.selectedLocation!.longitude}: ${provider.selectedLocation!.latitude}',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
                         const Spacer(),
                         const Icon(Icons.arrow_forward_ios)
                       ],
@@ -227,13 +248,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     onPressed: () {
                       if (formKey.currentState!.validate() &&
                           selectedDate != null &&
-                          selectedTime != null) {
+                          selectedTime != null &&
+                          provider.selectedLocation != null) {
                         FirebaseServices.addEvent(EventModel(
+                            longitude:
+                                provider.selectedLocation?.longitude ?? 0,
+                            latitude: provider.selectedLocation?.latitude ?? 0,
                             categoryValue:
                                 CategoryValues.values[selectedIndex + 1],
                             title: titleController.text,
                             description: descriptionController.text,
                             date: selectedDate!));
+                        provider.clearSelectedLocation();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text('Event Created Successfully!')),
@@ -243,7 +269,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text(
-                                  'Please fill all fields and select date/time')),
+                                  'Please fill all fields and select date/time/location.')),
                         );
                       }
                     },

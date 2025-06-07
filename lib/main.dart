@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:evently_app/UI/auth/forget_password_screen.dart';
 import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
 import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
 import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
-import 'package:evently_app/UI/events/create_event_screen.dart';
+import 'package:evently_app/UI/events/create_event/create_event_screen.dart';
+import 'package:evently_app/UI/events/create_event/pick_event_location_screen.dart';
+import 'package:evently_app/UI/events/create_event/providers/create_event_provider.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/UI/main_screen/tabs/map_tab/provider/maps_tab_provider.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
@@ -24,7 +28,10 @@ void main() async {
     ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ChangeNotifierProvider(
       create: (context) => UserAuthProvider(),
-    )
+    ),
+    ChangeNotifierProvider(
+      create: (context) => CreateEventProvider(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -46,6 +53,13 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (context) => ChangeNotifierProvider(
             create: (context) => MapsTabProvider(), child: const MainScreen()),
         CreateEventScreen.routeName: (context) => const CreateEventScreen(),
+        PickEventLocationScreen.routeName: (context) {
+          var provider =
+              ModalRoute.of(context)?.settings.arguments as CreateEventProvider;
+          return PickEventLocationScreen(
+            provider: provider,
+          );
+        }
       },
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,

@@ -7,6 +7,8 @@ class EventModel {
   String description;
   DateTime date;
   bool isFavorite;
+  double? latitude;
+  double? longitude;
   EventModel({
     this.id = '',
     this.isFavorite = false,
@@ -14,19 +16,9 @@ class EventModel {
     required this.title,
     required this.description,
     required this.date,
+    this.latitude = 0.0,
+    this.longitude = 0.0,
   });
-  static List<EventModel> get dummyData => List.generate(
-        10,
-        (index) {
-          return EventModel(
-            isFavorite: index % 2 == 0,
-            categoryValue: CategoryValues.bookClub,
-            title: 'Event ${index + 1}',
-            description: 'This is a description for event ${index + 1}.',
-            date: DateTime.now().add(Duration(days: index)),
-          );
-        },
-      );
 
   Map<String, dynamic> toJson() {
     return {
@@ -36,6 +28,8 @@ class EventModel {
       'date': date.millisecondsSinceEpoch,
       'category': categoryValue.name,
       'isFavorite': isFavorite,
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
@@ -48,6 +42,8 @@ class EventModel {
       categoryValue:
           CategoryValues.values.firstWhere((e) => e.name == json['category']),
       isFavorite: json['isFavorite'] as bool,
+      latitude: json['latitude'] ?? 0.0,
+      longitude: json['longitude'] ?? 0.0,
     );
   }
 }

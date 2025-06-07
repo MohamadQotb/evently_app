@@ -1,5 +1,5 @@
 import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
-import 'package:evently_app/UI/events/create_event_screen.dart';
+import 'package:evently_app/UI/events/create_event/create_event_screen.dart';
 import 'package:evently_app/UI/main_screen/tabs/home_tab/home_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/love_tab/love_tab.dart';
 import 'package:evently_app/UI/main_screen/tabs/map_tab/map_tab.dart';

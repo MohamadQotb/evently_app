@@ -4,6 +4,7 @@ import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:provider/provider.dart';
@@ -209,7 +210,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: const ButtonStyle(
                             side: WidgetStatePropertyAll(
                                 BorderSide(color: AppColors.mainColor))),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await context.read<UserAuthProvider>().googleSignIn();
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            Navigator.pushReplacementNamed(
+                                // ignore: use_build_context_synchronously
+                                context,
+                                MainScreen.routeName);
+                          }
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

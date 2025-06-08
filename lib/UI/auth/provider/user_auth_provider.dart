@@ -65,6 +65,29 @@ class UserAuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<String?> googleSignIn() async {
+    loading = true;
+    notifyListeners();
+    try {
+      userModel = await FirebaseServices.signInWithGoogle();
+      loading = false;
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      loading = false;
+      notifyListeners();
+      return getErrorMessage(e);
+    } on FirebaseException catch (e) {
+      loading = false;
+      notifyListeners();
+      return 'Firebase error: ${e.plugin} - ${e.code}: ${e.message}';
+    } catch (e) {
+      loading = false;
+      notifyListeners();
+      return 'Unexpected error: $e';
+    }
+    return null;
+  }
+
   String getErrorMessage(FirebaseAuthException e) {
     switch (e.code) {
       case 'invalid-email':

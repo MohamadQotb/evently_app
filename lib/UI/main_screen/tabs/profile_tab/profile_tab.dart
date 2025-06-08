@@ -1,9 +1,10 @@
+import 'package:evently_app/UI/auth/login_screen/login_screen.dart';
 import 'package:evently_app/UI/main_screen/tabs/profile_tab/widgets/drop_down_widget.dart';
 import 'package:evently_app/UI/main_screen/tabs/profile_tab/widgets/profile_header_widget.dart';
-import 'package:evently_app/UI/personalization_screen.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -91,8 +92,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         backgroundColor: Color(0xffFF5659)),
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushReplacementNamed(
-                          PersonalizationScreen.routeName);
+                      GoogleSignIn().signOut();
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginScreen.routeName);
                       setState(() {});
                     },
                     child: Row(

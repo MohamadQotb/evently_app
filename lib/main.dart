@@ -5,7 +5,9 @@ import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/events/create_event/create_event_screen.dart';
 import 'package:evently_app/UI/events/create_event/pick_event_location_screen.dart';
 import 'package:evently_app/UI/events/create_event/providers/create_event_provider.dart';
+import 'package:evently_app/UI/events/event_details/event_details_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
+import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/UI/main_screen/tabs/map_tab/provider/maps_tab_provider.dart';
 import 'package:evently_app/UI/onBoarding/on_boarding_screen.dart';
 import 'package:evently_app/UI/personalization_screen.dart';
@@ -59,7 +61,14 @@ class MyApp extends StatelessWidget {
           return PickEventLocationScreen(
             provider: provider,
           );
-        }
+        },
+        EventDetailsScreen.routeName: (context) {
+          EventModel event =
+              ModalRoute.of(context)?.settings.arguments as EventModel;
+          return EventDetailsScreen(
+            event: event,
+          );
+        },
       },
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,

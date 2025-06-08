@@ -10,6 +10,7 @@ class EventMapCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
+      constraints: BoxConstraints(maxWidth: size.width * 0.8),
       padding: const EdgeInsets.all(8),
       key: UniqueKey(),
       decoration: BoxDecoration(
@@ -60,12 +61,17 @@ class EventMapCard extends StatelessWidget {
                     color: Theme.of(context).textTheme.titleMedium!.color,
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                      '${eventModel.city ?? 'Unknown'}, ${eventModel.country ?? 'Unknown'}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontSize: 14)),
+                  SizedBox(
+                    width: size.width * 0.3,
+                    child: Text(
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        '${eventModel.city ?? 'Unknown'}, ${eventModel.country ?? 'Unknown'}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 14)),
+                  ),
                 ],
               ),
             ],

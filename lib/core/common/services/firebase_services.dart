@@ -77,6 +77,12 @@ class FirebaseServices {
     await doc.delete();
   }
 
+  static Future<void> updateEvent(EventModel event) async {
+    CollectionReference<EventModel> collection = getCollection();
+    DocumentReference<EventModel> doc = collection.doc(event.id);
+    await doc.update(event.toJson());
+  }
+
   static Future<List<EventModel>> getAllEvents(
       {required CategoryValues? categoryValue}) async {
     CollectionReference<EventModel> collection = getCollection();

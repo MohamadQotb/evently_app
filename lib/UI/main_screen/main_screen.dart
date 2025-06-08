@@ -46,10 +46,7 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: tabs,
-      ),
+      body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

@@ -17,6 +17,7 @@ class CreateEventProvider extends ChangeNotifier {
   LatLng? selectedLocation;
   CreateEventProvider() {
     getLocation();
+    clearSelectedLocation();
   }
 
   Future<bool> _getLocationPermission() async {

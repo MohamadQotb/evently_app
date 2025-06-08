@@ -4,31 +4,55 @@ import 'package:evently_app/UI/main_screen/models/category_slider_model.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/core/common/services/firebase_services.dart';
-
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
-class CreateEventScreen extends StatefulWidget {
-  static const String routeName = '/createEvent';
-  const CreateEventScreen({super.key, required this.provider});
+class EditEventScreen extends StatefulWidget {
+  static const String routeName = '/editEvent';
+
+  const EditEventScreen(
+      {super.key, required this.event, required this.provider});
+  final EventModel event;
   final CreateEventProvider provider;
 
   @override
-  State<CreateEventScreen> createState() => _CreateEventScreenState();
+  State<EditEventScreen> createState() => _EditEventScreenState();
 }
 
-class _CreateEventScreenState extends State<CreateEventScreen> {
+class _EditEventScreenState extends State<EditEventScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   int selectedIndex = 0;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.provider.clearSelectedLocation();
+    initEvent();
+  }
+
+  void initEvent() {
+    widget.provider.city = widget.event.city;
+    widget.provider.country = widget.event.country;
+
+    widget.provider.selectedLocation = LatLng(
+      widget.event.latitude ?? 0.0,
+      widget.event.longitude ?? 0.0,
+    );
+    titleController.text = widget.event.title;
+    descriptionController.text = widget.event.description;
+    selectedDate = widget.event.date;
+    selectedTime = TimeOfDay(
+      hour: widget.event.date.hour,
+      minute: widget.event.date.minute,
+    );
+
+    selectedIndex = CategorySliderModel.categories.sublist(1).indexWhere(
+        (element) => element.category == widget.event.categoryValue);
   }
 
   @override
@@ -36,7 +60,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Create Event',
+          'Edit Event',
           style: TextStyle(color: AppColors.mainColor),
         ),
         leading: InkWell(
@@ -241,18 +265,15 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor),
                         ),
                         const SizedBox(width: 8),
-                        widget.provider.selectedLocation == null
-                            ? const Text('Choose Event Location')
-                            : Expanded(
-                                child: Text(
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  '${widget.provider.city}, ${widget.provider.country}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
+                        Expanded(
+                          child: Text(
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            '${widget.provider.city}, ${widget.provider.country}',
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                         const Spacer(),
                         const Icon(Icons.arrow_forward_ios)
                       ],
@@ -264,22 +285,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           selectedDate != null &&
                           selectedTime != null &&
                           widget.provider.selectedLocation != null) {
-                        FirebaseServices.addEvent(EventModel(
-                            city: widget.provider.city,
-                            country: widget.provider.country,
-                            longitude:
-                                widget.provider.selectedLocation?.longitude ??
-                                    0,
-                            latitude:
-                                widget.provider.selectedLocation?.latitude ?? 0,
-                            categoryValue: CategoryValues.values[selectedIndex],
-                            title: titleController.text,
-                            description: descriptionController.text,
-                            date: selectedDate!));
+                        updateEvent();
+
+                        FirebaseServices.updateEvent(widget.event);
                         widget.provider.clearSelectedLocation();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text('Event Created Successfully!')),
+                              content: Text('Event Updated Successfully!')),
                         );
                         Navigator.pop(context);
                       } else {
@@ -290,7 +302,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         );
                       }
                     },
-                    child: const Text('Add Event'))
+                    child: const Text('Update Event'))
               ],
             ),
           ),
@@ -299,10 +311,27 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     );
   }
 
+  void updateEvent() {
+    widget.event.title = titleController.text;
+    widget.event.description = descriptionController.text;
+    widget.event.date = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      selectedTime!.hour,
+      selectedTime!.minute,
+    );
+    widget.event.categoryValue =
+        CategorySliderModel.categories.sublist(1)[selectedIndex].category;
+    widget.event.city = widget.provider.city;
+    widget.event.country = widget.provider.country;
+    widget.event.latitude = widget.provider.selectedLocation!.latitude;
+    widget.event.longitude = widget.provider.selectedLocation!.longitude;
+  }
+
   Future<void> _selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     );

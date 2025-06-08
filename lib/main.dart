@@ -5,6 +5,7 @@ import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/events/create_event/create_event_screen.dart';
 import 'package:evently_app/UI/events/create_event/pick_event_location_screen.dart';
 import 'package:evently_app/UI/events/create_event/providers/create_event_provider.dart';
+import 'package:evently_app/UI/events/edit_event/edit_event_screen.dart';
 import 'package:evently_app/UI/events/event_details/event_details_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
@@ -54,7 +55,12 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routeName: (context) =>
             const ForgetPasswordScreen(),
         MainScreen.routeName: (context) => const MainScreen(),
-        CreateEventScreen.routeName: (context) => const CreateEventScreen(),
+        CreateEventScreen.routeName: (context) {
+          CreateEventProvider provider = Provider.of<CreateEventProvider>(
+            context,
+          );
+          return CreateEventScreen(provider: provider);
+        },
         PickEventLocationScreen.routeName: (context) {
           var provider =
               ModalRoute.of(context)?.settings.arguments as CreateEventProvider;
@@ -68,6 +74,14 @@ class MyApp extends StatelessWidget {
           return EventDetailsScreen(
             event: event,
           );
+        },
+        EditEventScreen.routeName: (context) {
+          EventModel event =
+              ModalRoute.of(context)?.settings.arguments as EventModel;
+          CreateEventProvider provider = Provider.of<CreateEventProvider>(
+            context,
+          );
+          return EditEventScreen(event: event, provider: provider);
         },
       },
       title: 'Flutter Demo',

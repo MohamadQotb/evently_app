@@ -1,3 +1,4 @@
+import 'package:evently_app/UI/events/edit_event/edit_event_screen.dart';
 import 'package:evently_app/UI/main_screen/models/event_model.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:evently_app/core/common/services/firebase_services.dart';
@@ -29,7 +30,12 @@ class EventDetailsScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                EditEventScreen.routeName,
+                arguments: event,
+              );
+            },
             child: const Icon(
               Icons.edit_rounded,
               size: 24,

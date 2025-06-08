@@ -230,13 +230,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         const SizedBox(width: 8),
                         provider.selectedLocation == null
                             ? const Text('Choose Event Location')
-                            : Expanded(
-                                child: Text(
-                                  '${provider.city}, ${provider.country}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                            : Text(
+                                '${provider.city}, ${provider.country}',
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                         const Spacer(),
                         const Icon(Icons.arrow_forward_ios)

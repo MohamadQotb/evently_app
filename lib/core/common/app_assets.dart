@@ -29,6 +29,7 @@ class AppAssets {
       'assets/category_images/exhibtionCategoryImage.png';
   static const String workShopCategoryImage =
       'assets/category_images/workshopCategoryImage.png';
+  static const String defaultImage = 'assets/category_images/defaultImage.jpg';
 
   //iconsss
   static const String lrIcon = 'assets/icons/LR.png';

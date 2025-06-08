@@ -97,7 +97,7 @@ enum CategoryValues {
       case 'workShop':
         return AppAssets.workShopCategoryImage;
       default:
-        return '';
+        return AppAssets.defaultImage;
     }
   }
 }

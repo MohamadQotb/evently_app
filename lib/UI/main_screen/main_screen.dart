@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         child: const Icon(
           Icons.add,
         ),
@@ -45,7 +46,10 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: tabs[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: tabs,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

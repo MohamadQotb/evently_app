@@ -5,6 +5,7 @@ import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = '/onBoardingScreen';
@@ -32,6 +33,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<OnBoardingModelClass> onBoardingList = [
+      OnBoardingModelClass(
+          title: AppLocalizations.of(context)!.findEvents,
+          discribtion: AppLocalizations.of(context)!.findEventsDescription,
+          image: AppAssets.onBoarding1),
+      OnBoardingModelClass(
+          title: AppLocalizations.of(context)!.eventPlanning,
+          discribtion: AppLocalizations.of(context)!.eventPlanningDescription,
+          image: AppAssets.onBoarding2),
+      OnBoardingModelClass(
+          title: AppLocalizations.of(context)!.connectFriends,
+          discribtion: AppLocalizations.of(context)!.connectFriendsDescription,
+          image: AppAssets.onBoarding3),
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -52,8 +68,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   controller: controller,
                   itemCount: 3,
                   itemBuilder: (context, index) => OnBoardingCard(
-                      onBoardingModelClass:
-                          OnBoardingModelClass.onBoardingList[index]),
+                      onBoardingModelClass: onBoardingList[index]),
                 ),
               ),
               Row(

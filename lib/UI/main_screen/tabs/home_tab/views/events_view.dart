@@ -4,6 +4,7 @@ import 'package:evently_app/UI/main_screen/widgets/event_card_widget.dart';
 import 'package:evently_app/core/common/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({super.key});
@@ -24,7 +25,8 @@ class _EventsViewState extends State<EventsView> {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No events found.'));
+          return Center(
+              child: Text(AppLocalizations.of(context)!.noEventsFound));
         } else {
           List<EventModel> events = snapshot.data!;
           return RefreshIndicator(

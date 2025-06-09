@@ -2,6 +2,7 @@ import 'package:evently_app/UI/events/create_event/providers/create_event_provid
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PickEventLocationScreen extends StatelessWidget {
   static const String routeName = '/pickEventLocationScreen';
@@ -30,8 +31,8 @@ class PickEventLocationScreen extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(16.0),
             color: AppColors.mainColor,
-            child: const Text(
-              'Tap on Location To Select',
+            child: Text(
+              AppLocalizations.of(context)!.tapOnLocation,
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,

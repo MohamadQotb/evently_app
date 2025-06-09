@@ -1,6 +1,7 @@
 import 'package:evently_app/UI/main_screen/tabs/love_tab/views/event_views.dart';
 import 'package:evently_app/core/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoveTab extends StatefulWidget {
   const LoveTab({super.key});
@@ -46,7 +47,7 @@ class _LoveTabState extends State<LoveTab> {
                       Icons.search_rounded,
                       color: AppColors.mainColor,
                     ),
-                    hintText: 'Search for Event',
+                    hintText: AppLocalizations.of(context)!.searchEvent,
                     hintStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,

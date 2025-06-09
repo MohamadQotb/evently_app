@@ -4,10 +4,12 @@ import 'package:evently_app/UI/auth/regester_screen/regester_screen.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/loginScreen';
@@ -57,11 +59,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (isValidEmail(email)) {
                           return null;
                         } else {
-                          return 'Invalid Email';
+                          return AppLocalizations.of(context)!.invalidEmail;
                         }
                       },
-                      decoration: const InputDecoration(
-                          hintText: 'Email',
+                      decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.email,
                           prefixIcon: Icon(Icons.email_rounded)),
                     ),
                     const SizedBox(
@@ -77,23 +79,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         RegExp regExSpecialChar = RegExp(r'^(?=.*?[!@#\$&*~])');
 
                         if (password!.length < 8) {
-                          return 'Please enter password more than 8 letters';
+                          return AppLocalizations.of(context)!.passwordTooShort;
                         } else {
                           if (!regExSpecialChar.hasMatch(password)) {
-                            return 'Password should contain special caracters';
+                            return AppLocalizations.of(context)!
+                                .passwordSpecialChar;
                           } else if (!regExUperCase.hasMatch(password)) {
-                            return 'Password should contain UperCase Letter';
+                            return AppLocalizations.of(context)!
+                                .passwordUppercase;
                           } else if (!regExLowerCase.hasMatch(password)) {
-                            return 'Password should contain LowerCase Letter';
+                            return AppLocalizations.of(context)!
+                                .passwordLowercase;
                           } else if (!regExNum.hasMatch(password)) {
-                            return 'Password should contain Numbers';
+                            return AppLocalizations.of(context)!.passwordNumber;
                           } else {
                             return null;
                           }
                         }
                       },
                       decoration: InputDecoration(
-                          hintText: 'Password',
+                          hintText: AppLocalizations.of(context)!.password,
                           prefixIcon: const Icon(Icons.lock_rounded),
                           suffixIcon: GestureDetector(
                             onTap: () {
@@ -116,7 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushNamed(
                                   context, ForgetPasswordScreen.routeName);
                             },
-                            child: const Text('Forgot Password?')),
+                            child: Text(
+                                AppLocalizations.of(context)!.forgetPassword)),
                       ],
                     ),
                     const SizedBox(
@@ -139,10 +145,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) {
                                     if (value == null) {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
+                                          .showSnackBar(SnackBar(
                                               backgroundColor: Colors.green,
                                               content: Text(
-                                                  'User Logined Successfully!')));
+                                                  AppLocalizations.of(context)!
+                                                      .loginSuccess)));
                                       Navigator.pushReplacementNamed(
                                           context, MainScreen.routeName);
                                     } else {
@@ -155,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               }
                             },
-                            child: const Text('Login')),
+                            child: Text(AppLocalizations.of(context)!.login)),
                     const SizedBox(
                       height: 24,
                     ),
@@ -163,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Don\'t have an account?',
+                          AppLocalizations.of(context)!.noAccount,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextButton(
@@ -171,15 +178,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushNamed(
                                   context, RegesterScreen.routeName);
                             },
-                            child: const Text(
-                              'Create Account',
+                            child: Text(
+                              AppLocalizations.of(context)!.createAccount,
                             )),
                       ],
                     ),
                     const SizedBox(
                       height: 24,
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Expanded(
                           child: Divider(
@@ -189,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           child: Text(
-                            'Or',
+                            AppLocalizations.of(context)!.or,
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -229,13 +236,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text('Login with Google'),
+                            Text(AppLocalizations.of(context)!.loginWithGoogle),
                           ],
                         )),
                     const SizedBox(
                       height: 24,
                     ),
                     ToggleSwitch(
+                      onToggle: (index) {
+                        context.read<AppSettingsProvider>().changeLaguage();
+                      },
+                      initialLabelIndex:
+                          context.watch<AppSettingsProvider>().language == 'en'
+                              ? 0
+                              : 1,
                       activeBgColor: const [AppColors.mainColor],
                       borderColor: const [AppColors.mainColor],
                       borderWidth: 2,

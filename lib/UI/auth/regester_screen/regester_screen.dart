@@ -2,9 +2,11 @@ import 'package:evently_app/UI/auth/provider/user_auth_provider.dart';
 import 'package:evently_app/UI/main_screen/main_screen.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegesterScreen extends StatefulWidget {
   static const String routeName = '/regesterScreen';
@@ -36,7 +38,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: Text(AppLocalizations.of(context)!.register),
         leading: InkWell(
           child: const Icon(Icons.arrow_back),
           onTap: () {
@@ -61,10 +63,11 @@ class _RegesterScreenState extends State<RegesterScreen> {
                   ),
                   TextFormField(
                     controller: userNameController,
-                    validator: (value) =>
-                        value!.isNotEmpty ? null : 'please enter name',
-                    decoration: const InputDecoration(
-                        hintText: 'Name',
+                    validator: (value) => value!.isNotEmpty
+                        ? null
+                        : AppLocalizations.of(context)!.enterName,
+                    decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.name,
                         prefixIcon: Icon(Icons.person_rounded)),
                   ),
                   const SizedBox(
@@ -76,11 +79,11 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       if (isValidEmail(email)) {
                         return null;
                       } else {
-                        return 'Invalid Email';
+                        return AppLocalizations.of(context)!.invalidEmail;
                       }
                     },
-                    decoration: const InputDecoration(
-                        hintText: 'Email',
+                    decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.email,
                         prefixIcon: Icon(Icons.email_rounded)),
                   ),
                   const SizedBox(
@@ -96,23 +99,26 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       RegExp regExSpecialChar = RegExp(r'^(?=.*?[!@#\$&*~])');
 
                       if (password!.length < 8) {
-                        return 'Please enter password more than 8 letters';
+                        return AppLocalizations.of(context)!.passwordTooShort;
                       } else {
                         if (!regExSpecialChar.hasMatch(password)) {
-                          return 'Password should contain special caracters';
+                          return AppLocalizations.of(context)!
+                              .passwordSpecialChar;
                         } else if (!regExUperCase.hasMatch(password)) {
-                          return 'Password should contain UperCase Letter';
+                          return AppLocalizations.of(context)!
+                              .passwordUppercase;
                         } else if (!regExLowerCase.hasMatch(password)) {
-                          return 'Password should contain LowerCase Letter';
+                          return AppLocalizations.of(context)!
+                              .passwordLowercase;
                         } else if (!regExNum.hasMatch(password)) {
-                          return 'Password should contain Numbers';
+                          return AppLocalizations.of(context)!.passwordNumber;
                         } else {
                           return null;
                         }
                       }
                     },
                     decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: AppLocalizations.of(context)!.password,
                         prefixIcon: const Icon(Icons.lock_rounded),
                         suffixIcon: GestureDetector(
                           onTap: () {
@@ -134,11 +140,11 @@ class _RegesterScreenState extends State<RegesterScreen> {
                           passwordController.text) {
                         return null;
                       }
-                      return 'Enter the same Password';
+                      return AppLocalizations.of(context)!.reenterPassword;
                     },
                     obscureText: rePasswordObscureText,
                     decoration: InputDecoration(
-                        hintText: 'Re Password',
+                        hintText: AppLocalizations.of(context)!.rePassword,
                         prefixIcon: const Icon(Icons.lock_rounded),
                         suffixIcon: GestureDetector(
                           onTap: () {
@@ -170,10 +176,11 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                 (value) {
                                   if (value == null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                             backgroundColor: Colors.green,
                                             content: Text(
-                                                'User Signed Up Successfully!')));
+                                                AppLocalizations.of(context)!
+                                                    .signupSuccess)));
                                     Navigator.pushReplacementNamed(
                                         context, MainScreen.routeName);
                                   } else {
@@ -186,7 +193,8 @@ class _RegesterScreenState extends State<RegesterScreen> {
                               );
                             }
                           },
-                          child: const Text('Create Account')),
+                          child: Text(
+                              AppLocalizations.of(context)!.createAccount)),
                   const SizedBox(
                     height: 24,
                   ),
@@ -194,15 +202,15 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already Have Account ?',
+                        AppLocalizations.of(context)!.haveAccount,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text(
-                            'Login',
+                          child: Text(
+                            AppLocalizations.of(context)!.login,
                           )),
                     ],
                   ),
@@ -210,6 +218,13 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     height: 24,
                   ),
                   ToggleSwitch(
+                    onToggle: (index) {
+                      context.read<AppSettingsProvider>().changeLaguage();
+                    },
+                    initialLabelIndex:
+                        context.watch<AppSettingsProvider>().language == 'en'
+                            ? 0
+                            : 1,
                     activeBgColor: const [AppColors.mainColor],
                     borderColor: const [AppColors.mainColor],
                     borderWidth: 2,

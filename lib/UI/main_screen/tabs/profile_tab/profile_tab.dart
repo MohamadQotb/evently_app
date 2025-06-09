@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -15,31 +16,31 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  List<DropdownMenuItem<String>> languageMenuItem = [
-    DropdownMenuItem(
-      child: Text('Arabic'),
-      value: 'Arabic',
-    ),
-    DropdownMenuItem(
-      child: Text('English'),
-      value: 'English',
-    )
-  ];
-  List<DropdownMenuItem<String>> themeMenuItem = [
-    DropdownMenuItem(
-      child: Text('Light'),
-      value: 'Light',
-    ),
-    DropdownMenuItem(
-      child: Text('Dark'),
-      value: 'Dark',
-    )
-  ];
-  String? selectedLanguage = 'Arabic';
-
   @override
   Widget build(BuildContext context) {
-    String? selectedTheme = context.read<ThemeProvider>().themeTitle;
+    List<DropdownMenuItem<String>> languageMenuItem = [
+      DropdownMenuItem(
+        child: Text(AppLocalizations.of(context)!.arabic),
+        value: 'ar',
+      ),
+      DropdownMenuItem(
+        child: Text(AppLocalizations.of(context)!.english),
+        value: 'en',
+      )
+    ];
+    List<DropdownMenuItem<String>> themeMenuItem = [
+      DropdownMenuItem(
+        child: Text(AppLocalizations.of(context)!.light),
+        value: 'Light',
+      ),
+      DropdownMenuItem(
+        child: Text(AppLocalizations.of(context)!.dark),
+        value: 'Dark',
+      )
+    ];
+    String? selectedLanguage =
+        context.read<AppSettingsProvider>().language == 'en' ? 'en' : 'ar';
+    String? selectedTheme = context.read<AppSettingsProvider>().themeTitle;
     return Column(
       children: [
         ProfileHeaderWidget(),
@@ -50,7 +51,7 @@ class _ProfileTabState extends State<ProfileTab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Language',
+                  AppLocalizations.of(context)!.language,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(
@@ -60,7 +61,11 @@ class _ProfileTabState extends State<ProfileTab> {
                   selected: selectedLanguage,
                   items: languageMenuItem,
                   onChanged: (p0) {
+                    if (selectedLanguage == p0) {
+                      return;
+                    }
                     selectedLanguage = p0;
+                    context.read<AppSettingsProvider>().changeLaguage();
                     setState(() {});
                   },
                 ),
@@ -68,7 +73,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   height: 16,
                 ),
                 Text(
-                  'Theme',
+                  AppLocalizations.of(context)!.theme,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(
@@ -82,7 +87,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       return;
                     }
                     selectedTheme = p0;
-                    context.read<ThemeProvider>().toggleTheme();
+                    context.read<AppSettingsProvider>().toggleTheme();
                     setState(() {});
                   },
                 ),
@@ -108,7 +113,7 @@ class _ProfileTabState extends State<ProfileTab> {
                           width: 8,
                         ),
                         Text(
-                          'Logout',
+                          AppLocalizations.of(context)!.logout,
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w400,

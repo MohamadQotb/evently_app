@@ -57,7 +57,7 @@ class MapTab extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text('No events found.'));
+                      return SizedBox();
                     } else {
                       List<EventModel> events = snapshot.data!;
                       return ListView.separated(

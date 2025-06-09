@@ -7,6 +7,7 @@ import 'package:evently_app/UI/main_screen/tabs/profile_tab/profile_tab.dart';
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/mainScreen';
@@ -65,17 +66,17 @@ class _MainScreenState extends State<MainScreen> {
               AppAssets.filledHomeIcon,
               height: 24,
             ),
-            label: 'Home',
+            label: AppLocalizations.of(context)!.home,
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.location_on_outlined),
             activeIcon: Icon(Icons.location_on),
-            label: 'Map',
+            label: AppLocalizations.of(context)!.map,
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline_rounded),
             activeIcon: Icon(Icons.favorite),
-            label: 'Love',
+            label: AppLocalizations.of(context)!.love,
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -86,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
               AppAssets.filledProfileIcon,
               height: 24,
             ),
-            label: 'Profile',
+            label: AppLocalizations.of(context)!.profile,
           ),
         ],
       ),

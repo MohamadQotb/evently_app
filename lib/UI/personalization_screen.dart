@@ -5,6 +5,7 @@ import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalizationScreen extends StatelessWidget {
   static const String routeName = '/personalization';
@@ -29,10 +30,10 @@ class PersonalizationScreen extends StatelessWidget {
                 width: double.infinity,
                 height: height * .45,
               ),
-              const Row(
+              Row(
                 children: [
                   Text(
-                    'Personalize Your Experience',
+                    AppLocalizations.of(context)!.personalizeYourExperience,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -41,20 +42,27 @@ class PersonalizationScreen extends StatelessWidget {
                 ],
               ),
               Text(
-                'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.',
+                AppLocalizations.of(context)!.personalizeDescription,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Language',
+                  Text(
+                    AppLocalizations.of(context)!.language,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: AppColors.mainColor),
                   ),
                   ToggleSwitch(
+                    onToggle: (index) {
+                      context.read<AppSettingsProvider>().changeLaguage();
+                    },
+                    initialLabelIndex:
+                        context.watch<AppSettingsProvider>().language == 'en'
+                            ? 0
+                            : 1,
                     activeBgColor: const [AppColors.mainColor],
                     borderColor: const [AppColors.mainColor],
                     borderWidth: 2,
@@ -79,8 +87,8 @@ class PersonalizationScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Theme',
+                  Text(
+                    AppLocalizations.of(context)!.theme,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -88,10 +96,10 @@ class PersonalizationScreen extends StatelessWidget {
                   ),
                   ToggleSwitch(
                     onToggle: (index) {
-                      context.read<ThemeProvider>().toggleTheme();
+                      context.read<AppSettingsProvider>().toggleTheme();
                     },
                     initialLabelIndex:
-                        context.watch<ThemeProvider>().themeMode ==
+                        context.watch<AppSettingsProvider>().themeMode ==
                                 ThemeMode.light
                             ? 0
                             : 1,
@@ -118,7 +126,7 @@ class PersonalizationScreen extends StatelessWidget {
                     Navigator.pushReplacementNamed(
                         context, OnBoardingScreen.routeName);
                   },
-                  child: const Text('Let’s Start')),
+                  child: Text(AppLocalizations.of(context)!.letsStart)),
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:evently_app/core/common/widgets/category_slider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeHeaderView extends StatelessWidget {
   const HomeHeaderView({super.key});
@@ -23,14 +24,16 @@ class HomeHeaderView extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              textDirection: TextDirection.ltr,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
+                  textDirection: TextDirection.ltr,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //TODO:Localize
                     Text(
-                      'Welcome Back ✨',
+                      AppLocalizations.of(context)!.welcomeBack,
                       style: TextStyle(
                         color: Theme.of(context).primaryColorLight,
                         fontSize: 14,
@@ -50,14 +53,16 @@ class HomeHeaderView extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
-                    context.read<ThemeProvider>().toggleTheme();
+                    context.read<AppSettingsProvider>().toggleTheme();
                   },
                   child: Icon(Icons.wb_sunny_outlined,
                       color: Theme.of(context).primaryColorLight),
                 ),
                 const SizedBox(width: 10),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.read<AppSettingsProvider>().changeLaguage();
+                  },
                   child: Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(8),
@@ -67,7 +72,9 @@ class HomeHeaderView extends StatelessWidget {
                           color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.circular(8)),
                       child: Text(
-                        'EN',
+                        context.watch<AppSettingsProvider>().language == 'ar'
+                            ? 'EN'
+                            : 'AR',
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 14,
@@ -79,6 +86,7 @@ class HomeHeaderView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Row(
+              textDirection: TextDirection.ltr,
               children: [
                 const Icon(
                   Icons.location_on_outlined,
@@ -87,6 +95,7 @@ class HomeHeaderView extends StatelessWidget {
                 const SizedBox(width: 4),
                 Text(
                   '${context.watch<HomeTabProvider>().city} , ${context.watch<HomeTabProvider>().country}',
+                  textDirection: TextDirection.ltr,
                   style: TextStyle(
                     color: Theme.of(context).primaryColorLight,
                     fontSize: 14,

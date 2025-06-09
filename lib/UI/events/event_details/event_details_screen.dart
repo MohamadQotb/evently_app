@@ -5,6 +5,7 @@ import 'package:evently_app/core/common/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   static const String routeName = '/eventDetails';
@@ -16,8 +17,8 @@ class EventDetailsScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Event Details',
+        title: Text(
+          AppLocalizations.of(context)!.eventDetails,
           style: TextStyle(color: AppColors.mainColor),
         ),
         centerTitle: true,
@@ -48,8 +49,8 @@ class EventDetailsScreen extends StatelessWidget {
               await FirebaseServices.deleteEvent(event).then((value) {
                 // ignore: use_build_context_synchronously
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Event deleted successfully'),
+                  SnackBar(
+                    content: Text(AppLocalizations.of(context)!.eventDeleted),
                     backgroundColor: AppColors.mainColor,
                   ),
                 );
@@ -196,7 +197,8 @@ class EventDetailsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text('Description', style: Theme.of(context).textTheme.titleMedium),
+          Text(AppLocalizations.of(context)!.description,
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           Text(event.description,
               style: Theme.of(context).textTheme.titleMedium),

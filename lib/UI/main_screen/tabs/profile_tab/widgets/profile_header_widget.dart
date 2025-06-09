@@ -18,6 +18,7 @@ class ProfileHeaderWidget extends StatelessWidget {
       ),
       child: SafeArea(
         child: Row(
+          textDirection: TextDirection.ltr,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.only(
@@ -49,6 +50,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                   Text(context.watch<UserAuthProvider>().userModel?.email ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,

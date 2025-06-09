@@ -16,9 +16,11 @@ import 'package:evently_app/core/common/app_theme.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +28,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => ThemeProvider()),
+    ChangeNotifierProvider(create: (context) => AppSettingsProvider()),
     ChangeNotifierProvider(
       create: (context) => UserAuthProvider(),
     ),
@@ -45,6 +47,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('ar'), // Arabic
+      ],
+      locale: Locale(
+        context.watch<AppSettingsProvider>().language,
+      ),
       debugShowCheckedModeBanner: false,
       routes: {
         PersonalizationScreen.routeName: (context) =>
@@ -87,7 +102,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: context.watch<ThemeProvider>().themeMode,
+      themeMode: context.watch<AppSettingsProvider>().themeMode,
       initialRoute: FirebaseAuth.instance.currentUser != null
           ? MainScreen.routeName
           : PersonalizationScreen.routeName,

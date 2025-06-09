@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ThemeProvider extends ChangeNotifier {
+class AppSettingsProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.light;
   String themeTitle = 'Light';
+  String language = 'en'; // Default language
 
   void toggleTheme() {
     if (themeMode == ThemeMode.light) {
@@ -11,6 +12,15 @@ class ThemeProvider extends ChangeNotifier {
     } else {
       themeMode = ThemeMode.light;
       themeTitle = 'Light';
+    }
+    notifyListeners();
+  }
+
+  void changeLaguage() {
+    if (language == 'en') {
+      language = 'ar';
+    } else {
+      language = 'en';
     }
     notifyListeners();
   }

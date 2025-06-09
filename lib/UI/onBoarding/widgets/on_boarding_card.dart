@@ -1,6 +1,8 @@
 import 'package:evently_app/UI/onBoarding/models/on_boarding_model_class.dart';
 import 'package:evently_app/core/common/app_colors.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OnBoardingCard extends StatelessWidget {
   final OnBoardingModelClass onBoardingModelClass;
@@ -10,6 +12,7 @@ class OnBoardingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.asset(
           onBoardingModelClass.image,
@@ -26,7 +29,9 @@ class OnBoardingCard extends StatelessWidget {
         Text(
           onBoardingModelClass.discribtion,
           style: Theme.of(context).textTheme.titleMedium,
-          textAlign: TextAlign.left,
+          textAlign: context.watch<AppSettingsProvider>().language == 'ar'
+              ? TextAlign.right
+              : TextAlign.left,
         ),
       ],
     );

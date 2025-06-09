@@ -1,5 +1,6 @@
 import 'package:evently_app/core/common/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   static const String routeName = '/forgetPasswordScreen';
@@ -9,7 +10,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forget Password'),
+        title: Text(AppLocalizations.of(context)!.forgetPassword),
         leading: InkWell(
           child: const Icon(Icons.arrow_back),
           onTap: () {
@@ -29,14 +30,16 @@ class ForgetPasswordScreen extends StatelessWidget {
                   height: 24,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                      hintText: 'Email',
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.email,
                       prefixIcon: Icon(Icons.email_rounded)),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text('Reset Password'))
+                ElevatedButton(
+                    onPressed: () {},
+                    child: Text(AppLocalizations.of(context)!.resetPassword))
               ],
             ),
           ],

@@ -318,7 +318,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                     0,
                             latitude:
                                 widget.provider.selectedLocation?.latitude ?? 0,
-                            categoryValue: CategoryValues.values[selectedIndex],
+                            categoryValue:
+                                CategoryValues.values.sublist(1)[selectedIndex],
                             title: titleController.text,
                             description: descriptionController.text,
                             date: selectedDate!));
